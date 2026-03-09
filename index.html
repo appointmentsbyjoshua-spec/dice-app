@@ -319,10 +319,9 @@
     <p>Client Intake &amp; Liability Waiver</p>
   </div>
   <div class="header-right">
-    <strong>Studio Name</strong><br/>
-    123 Ink Street, Your City<br/>
-    hello@yourstudio.com<br/>
-    (000) 000-0000
+    <strong>Eastside Ink Tattoo Studio</strong><br/>
+    Ringwood, Victoria<br/>
+    eastsideringwood@gmail.com<br/>
   </div>
 </div>
 <div class="red-bar"></div>
@@ -752,9 +751,9 @@ async function submitForm(){
     guardian_relation: document.getElementById('guardian-relation').value.trim(),
     guardian_phone: document.getElementById('guardian-phone').value.trim(),
     guardian_id: document.getElementById('guardian-id').value.trim(),
-    client_signature_base64: clientSig,
-    artist_signature_base64: artistSig,
-    guardian_signature_base64: guardianSig
+    client_signature_base64: 'signature captured',
+    artist_signature_base64: artistSig ? 'signature captured' : '',
+    guardian_signature_base64: guardianSig ? 'signature captured' : ''
   };
 
   const submitButton = document.querySelector('.submit-btn');
@@ -763,13 +762,18 @@ async function submitForm(){
   submitButton.innerHTML = 'Sending...';
 
   try {
+    const formData = new FormData();
+
+    for (const key in payload) {
+      formData.append(key, payload[key]);
+    }
+
     const response = await fetch(FORMSPREE_ENDPOINT, {
       method: 'POST',
+      body: formData,
       headers: {
-        'Content-Type': 'application/json',
         'Accept': 'application/json'
-      },
-      body: JSON.stringify(payload)
+      }
     });
 
     if(response.ok){
