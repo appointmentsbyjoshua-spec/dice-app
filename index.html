@@ -17,7 +17,6 @@
   }
   body{background:var(--paper);font-family:'Inter',sans-serif;color:var(--ink);min-height:100vh;padding:0}
 
-  /* Print styles */
   @media print {
     .no-print{display:none!important}
     body{background:#fff}
@@ -56,10 +55,7 @@
   }
   .header-right strong{color:#fff;font-size:13px}
 
-  .red-bar{
-    background:var(--red);
-    height:4px;
-  }
+  .red-bar{background:var(--red);height:4px}
 
   .page{
     max-width:860px;
@@ -67,7 +63,6 @@
     padding:40px 40px 60px;
   }
 
-  /* Section titles */
   .section-label{
     font-family:'Bebas Neue',sans-serif;
     font-size:13px;
@@ -91,7 +86,6 @@
 
   .section{margin-bottom:36px}
 
-  /* Form grid */
   .grid{display:grid;gap:16px}
   .grid-2{grid-template-columns:1fr 1fr}
   .grid-3{grid-template-columns:1fr 1fr 1fr}
@@ -127,9 +121,13 @@
     border-color:var(--ink);
   }
   .field textarea{resize:vertical;min-height:80px}
-  .field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' fill='none' stroke-width='1.5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px}
+  .field select{
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' fill='none' stroke-width='1.5'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;
+    background-position:right 12px center;
+    padding-right:32px
+  }
 
-  /* Checkboxes */
   .check-group{display:flex;flex-direction:column;gap:10px}
   .check-item{display:flex;align-items:flex-start;gap:10px;cursor:pointer}
   .check-item input[type=checkbox]{
@@ -141,7 +139,6 @@
   .check-item span{font-size:13px;line-height:1.5;color:#333}
   .check-item strong{color:var(--ink)}
 
-  /* Medical conditions grid */
   .conditions-grid{
     display:grid;
     grid-template-columns:repeat(3,1fr);
@@ -154,15 +151,13 @@
   }
   .cond-item input{accent-color:var(--red);cursor:pointer}
 
-  /* Divider */
   .divider{border:none;border-top:1px solid var(--border);margin:32px 0}
 
-  /* Waiver box */
   .waiver-box{
     background:#fff;
     border:1px solid var(--border);
     border-left:3px solid var(--ink);
-    padding:20px 20px 20px 20px;
+    padding:20px;
     border-radius:4px;
     font-size:12px;
     line-height:1.8;
@@ -174,7 +169,6 @@
   .waiver-box p{margin-bottom:10px}
   .waiver-box p:last-child{margin-bottom:0}
 
-  /* Signature area */
   .sig-area{
     display:grid;
     grid-template-columns:1fr 1fr;
@@ -189,8 +183,11 @@
     gap:6px;
   }
   .sig-box label{
-    font-size:10px;font-weight:600;letter-spacing:.12em;
-    text-transform:uppercase;color:var(--mid);
+    font-size:10px;
+    font-weight:600;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--mid);
   }
   canvas{
     border:1px solid var(--border);
@@ -201,18 +198,21 @@
     width:100%;
     height:120px;
   }
-  .sig-actions{
-    display:flex;gap:8px;margin-top:4px;
-  }
+  .sig-actions{display:flex;gap:8px;margin-top:4px}
   .sig-btn{
-    font-size:11px;font-family:'Inter',sans-serif;
-    padding:4px 10px;border-radius:3px;cursor:pointer;
-    letter-spacing:0.05em;border:1px solid var(--border);
-    background:#fff;color:#666;transition:all .15s;
+    font-size:11px;
+    font-family:'Inter',sans-serif;
+    padding:4px 10px;
+    border-radius:3px;
+    cursor:pointer;
+    letter-spacing:0.05em;
+    border:1px solid var(--border);
+    background:#fff;
+    color:#666;
+    transition:all .15s;
   }
   .sig-btn:hover{border-color:var(--ink);color:var(--ink)}
 
-  /* Submit */
   .form-footer{
     display:flex;
     align-items:center;
@@ -227,28 +227,38 @@
 
   .btn-group{display:flex;gap:12px;flex-wrap:wrap}
   .submit-btn{
-    background:var(--ink);color:#fff;
-    border:none;border-radius:4px;
+    background:var(--ink);
+    color:#fff;
+    border:none;
+    border-radius:4px;
     padding:14px 32px;
     font-family:'Bebas Neue',sans-serif;
-    font-size:18px;letter-spacing:2px;
-    cursor:pointer;transition:background .2s;
+    font-size:18px;
+    letter-spacing:2px;
+    cursor:pointer;
+    transition:background .2s;
   }
   .submit-btn:hover{background:#c0392b}
+  .submit-btn:disabled{opacity:.6;cursor:not-allowed}
+
   .print-btn{
-    background:transparent;color:var(--ink);
-    border:2px solid var(--ink);border-radius:4px;
+    background:transparent;
+    color:var(--ink);
+    border:2px solid var(--ink);
+    border-radius:4px;
     padding:12px 24px;
     font-family:'Bebas Neue',sans-serif;
-    font-size:18px;letter-spacing:2px;
-    cursor:pointer;transition:all .2s;
+    font-size:18px;
+    letter-spacing:2px;
+    cursor:pointer;
+    transition:all .2s;
   }
   .print-btn:hover{background:var(--ink);color:#fff}
 
-  /* Success screen */
   #success-screen{
     display:none;
-    position:fixed;inset:0;
+    position:fixed;
+    inset:0;
     background:var(--paper);
     z-index:100;
     flex-direction:column;
@@ -263,29 +273,41 @@
   #success-screen h2{font-family:'Bebas Neue',sans-serif;font-size:48px;letter-spacing:2px}
   #success-screen p{color:#555;font-size:15px;max-width:400px;line-height:1.6}
   .new-btn{
-    background:var(--ink);color:#fff;border:none;border-radius:4px;
-    padding:14px 32px;font-family:'Bebas Neue',sans-serif;
-    font-size:18px;letter-spacing:2px;cursor:pointer;margin-top:8px;
+    background:var(--ink);
+    color:#fff;
+    border:none;
+    border-radius:4px;
+    padding:14px 32px;
+    font-family:'Bebas Neue',sans-serif;
+    font-size:18px;
+    letter-spacing:2px;
+    cursor:pointer;
+    margin-top:8px;
   }
 
-  /* Required star */
   .req{color:var(--red)}
 
-  /* Info note */
   .info-note{
-    background:#fff;border:1px solid var(--border);
-    border-radius:4px;padding:12px 14px;
-    font-size:12px;color:#666;line-height:1.6;
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:4px;
+    padding:12px 14px;
+    font-size:12px;
+    color:#666;
+    line-height:1.6;
     margin-top:12px;
   }
   .info-note strong{color:var(--ink)}
 
-  /* Age warning */
   #age-warning{
     display:none;
-    background:#fff3cd;border:1px solid #ffc107;
-    border-radius:4px;padding:12px 14px;
-    font-size:13px;color:#856404;margin-top:8px;
+    background:#fff3cd;
+    border:1px solid #ffc107;
+    border-radius:4px;
+    padding:12px 14px;
+    font-size:13px;
+    color:#856404;
+    margin-top:8px;
   }
 </style>
 </head>
@@ -307,7 +329,6 @@
 
 <div class="page">
 
-  <!-- CLIENT INFO -->
   <div class="section">
     <div class="section-label">Client Information</div>
     <div class="grid grid-2" style="margin-bottom:16px">
@@ -358,7 +379,6 @@
 
   <hr class="divider"/>
 
-  <!-- TATTOO DETAILS -->
   <div class="section">
     <div class="section-label">Tattoo Details</div>
     <div class="grid grid-2" style="margin-bottom:16px">
@@ -398,7 +418,6 @@
 
   <hr class="divider"/>
 
-  <!-- MEDICAL -->
   <div class="section">
     <div class="section-label">Health &amp; Medical Information</div>
     <p style="font-size:13px;color:#555;margin-bottom:16px;line-height:1.6">Please check <strong>all conditions that apply</strong>. This information is kept strictly confidential and is used solely to ensure your safety during the procedure.</p>
@@ -457,7 +476,6 @@
 
   <hr class="divider"/>
 
-  <!-- CONSENT & WAIVER -->
   <div class="section">
     <div class="section-label">Consent &amp; Liability Waiver</div>
     <div class="waiver-box">
@@ -504,7 +522,6 @@
 
   <hr class="divider"/>
 
-  <!-- SIGNATURES -->
   <div class="section">
     <div class="section-label">Signatures</div>
     <div class="sig-area">
@@ -512,7 +529,7 @@
         <label>Client Signature <span class="req">*</span></label>
         <canvas id="client-sig" width="400" height="120"></canvas>
         <div class="sig-actions">
-          <button class="sig-btn" onclick="clearSig('client-sig')">Clear</button>
+          <button type="button" class="sig-btn" onclick="clearSig('client-sig')">Clear</button>
           <span style="font-size:11px;color:#aaa;align-self:center">Sign above with mouse or finger</span>
         </div>
       </div>
@@ -520,7 +537,7 @@
         <label>Artist Signature</label>
         <canvas id="artist-sig" width="400" height="120"></canvas>
         <div class="sig-actions">
-          <button class="sig-btn" onclick="clearSig('artist-sig')">Clear</button>
+          <button type="button" class="sig-btn" onclick="clearSig('artist-sig')">Clear</button>
         </div>
       </div>
     </div>
@@ -551,36 +568,34 @@
         <label>Guardian Signature</label>
         <canvas id="guardian-sig" width="400" height="120"></canvas>
         <div class="sig-actions">
-          <button class="sig-btn" onclick="clearSig('guardian-sig')">Clear</button>
+          <button type="button" class="sig-btn" onclick="clearSig('guardian-sig')">Clear</button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- FOOTER -->
   <div class="form-footer">
     <p class="footer-note">This form is kept on file for a minimum of 7 years. Your information is private and will not be shared with third parties. Fields marked <span class="req">*</span> are required.</p>
     <div class="btn-group no-print">
-      <button class="print-btn" onclick="window.print()">🖨 Print</button>
-      <button class="submit-btn" onclick="submitForm()">Submit Form →</button>
+      <button type="button" class="print-btn" onclick="window.print()">🖨 Print</button>
+      <button type="button" class="submit-btn" onclick="submitForm()">Submit Form →</button>
     </div>
   </div>
 
 </div>
 
-<!-- SUCCESS SCREEN -->
 <div id="success-screen">
   <div class="success-icon">🖊️</div>
   <h2>Form Submitted</h2>
   <p>Thank you! Your consent form has been recorded. Your artist will be with you shortly.</p>
-  <button class="new-btn" onclick="resetForm()">New Client Form</button>
+  <button type="button" class="new-btn" onclick="resetForm()">New Client Form</button>
 </div>
 
 <script>
-// Set today's date
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/xwvrvdkk";
+
 document.getElementById('today-date').value = new Date().toISOString().split('T')[0];
 
-// Age check
 document.getElementById('dob').addEventListener('change', function(){
   const dob = new Date(this.value);
   const today = new Date();
@@ -598,11 +613,9 @@ document.getElementById('dob').addEventListener('change', function(){
   }
 });
 
-// Signature pads
 function initCanvas(id){
   const canvas = document.getElementById(id);
   const ctx = canvas.getContext('2d');
-  // Resize canvas to actual display size
   const rect = canvas.getBoundingClientRect();
   canvas.width = rect.width || 380;
   canvas.height = 120;
@@ -633,18 +646,32 @@ function initCanvas(id){
   canvas.addEventListener('mousemove', e=>{
     if(!drawing)return;
     const p=getPos(e);
-    ctx.beginPath();ctx.moveTo(lastX,lastY);ctx.lineTo(p.x,p.y);ctx.stroke();
-    lastX=p.x;lastY=p.y;
+    ctx.beginPath();
+    ctx.moveTo(lastX,lastY);
+    ctx.lineTo(p.x,p.y);
+    ctx.stroke();
+    lastX=p.x;
+    lastY=p.y;
   });
   canvas.addEventListener('mouseup',()=>drawing=false);
   canvas.addEventListener('mouseleave',()=>drawing=false);
-  canvas.addEventListener('touchstart',e=>{e.preventDefault();drawing=true;const p=getPos(e);lastX=p.x;lastY=p.y;},{passive:false});
+  canvas.addEventListener('touchstart',e=>{
+    e.preventDefault();
+    drawing=true;
+    const p=getPos(e);
+    lastX=p.x;
+    lastY=p.y;
+  },{passive:false});
   canvas.addEventListener('touchmove',e=>{
     e.preventDefault();
     if(!drawing)return;
     const p=getPos(e);
-    ctx.beginPath();ctx.moveTo(lastX,lastY);ctx.lineTo(p.x,p.y);ctx.stroke();
-    lastX=p.x;lastY=p.y;
+    ctx.beginPath();
+    ctx.moveTo(lastX,lastY);
+    ctx.lineTo(p.x,p.y);
+    ctx.stroke();
+    lastX=p.x;
+    lastY=p.y;
   },{passive:false});
   canvas.addEventListener('touchend',()=>drawing=false);
 }
@@ -657,7 +684,9 @@ function clearSig(id){
 function isCanvasEmpty(id){
   const canvas = document.getElementById(id);
   const data = canvas.getContext('2d').getImageData(0,0,canvas.width,canvas.height).data;
-  for(let i=3;i<data.length;i+=4){ if(data[i]>0) return false; }
+  for(let i=3;i<data.length;i+=4){
+    if(data[i] > 0) return false;
+  }
   return true;
 }
 
@@ -667,8 +696,7 @@ window.addEventListener('load',()=>{
   initCanvas('guardian-sig');
 });
 
-// Form validation & submit
-function submitForm(){
+async function submitForm(){
   const name = document.getElementById('fullname').value.trim();
   const dob = document.getElementById('dob').value;
   const placement = document.getElementById('placement').value.trim();
@@ -683,24 +711,95 @@ function submitForm(){
   if(!waiver){ alert('Please read and accept the liability waiver.'); return; }
   if(sigEmpty){ alert('Please provide your signature.'); return; }
 
-  // In a real app, you would send data to a server here
-  // For now, we just show the success screen
-  console.log('Form submitted:', {
-    name, dob, placement, artist,
-    clientSig: document.getElementById('client-sig').toDataURL()
-  });
+  const conditions = Array.from(document.querySelectorAll('input[name="condition"]:checked'))
+    .map(el => el.value);
 
-  document.getElementById('success-screen').classList.add('show');
-  window.scrollTo(0,0);
+  const clientSig = document.getElementById('client-sig').toDataURL('image/png');
+  const artistSig = isCanvasEmpty('artist-sig') ? '' : document.getElementById('artist-sig').toDataURL('image/png');
+  const guardianSig = isCanvasEmpty('guardian-sig') ? '' : document.getElementById('guardian-sig').toDataURL('image/png');
+
+  const payload = {
+    _subject: `New Tattoo Consent Form - ${name}`,
+    full_name: name,
+    date_of_birth: dob,
+    phone: document.getElementById('phone').value.trim(),
+    email: document.getElementById('email').value.trim(),
+    address: document.getElementById('address').value.trim(),
+    id_type: document.getElementById('id-type').value,
+    id_number: document.getElementById('id-number').value.trim(),
+    today_date: document.getElementById('today-date').value,
+    artist_name: artist,
+    appointment_date: document.getElementById('appt-date').value,
+    placement: placement,
+    size: document.getElementById('size').value,
+    design_description: document.getElementById('design').value.trim(),
+    first_tattoo: document.getElementById('first-tattoo').checked ? 'Yes' : 'No',
+    medical_conditions: conditions.join(', '),
+    medications: document.getElementById('medications').value.trim(),
+    allergies: document.getElementById('allergies').value.trim(),
+    substances_last_24h: document.getElementById('substances').value,
+    sunburned_or_tanned: document.getElementById('sunburn').value,
+    previous_reaction: document.getElementById('prev-reaction').value,
+    additional_health_notes: document.getElementById('health-notes').value.trim(),
+    consent_age: document.getElementById('consent-age').checked ? 'Yes' : 'No',
+    consent_sober: document.getElementById('consent-sober').checked ? 'Yes' : 'No',
+    consent_health: document.getElementById('consent-health').checked ? 'Yes' : 'No',
+    consent_permanent: document.getElementById('consent-permanent').checked ? 'Yes' : 'No',
+    consent_aftercare: document.getElementById('consent-aftercare').checked ? 'Yes' : 'No',
+    consent_photo: document.getElementById('consent-photo').checked ? 'Yes' : 'No',
+    consent_waiver: document.getElementById('consent-waiver').checked ? 'Yes' : 'No',
+    guardian_name: document.getElementById('guardian-name').value.trim(),
+    guardian_relation: document.getElementById('guardian-relation').value.trim(),
+    guardian_phone: document.getElementById('guardian-phone').value.trim(),
+    guardian_id: document.getElementById('guardian-id').value.trim(),
+    client_signature_base64: clientSig,
+    artist_signature_base64: artistSig,
+    guardian_signature_base64: guardianSig
+  };
+
+  const submitButton = document.querySelector('.submit-btn');
+  const originalText = submitButton.innerHTML;
+  submitButton.disabled = true;
+  submitButton.innerHTML = 'Sending...';
+
+  try {
+    const response = await fetch(FORMSPREE_ENDPOINT, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(payload)
+    });
+
+    if(response.ok){
+      document.getElementById('success-screen').classList.add('show');
+      window.scrollTo(0,0);
+    } else {
+      const errorData = await response.json().catch(() => ({}));
+      console.error('Submission error:', errorData);
+      alert('There was a problem sending the form. Please try again.');
+    }
+  } catch (error) {
+    console.error('Network error:', error);
+    alert('Network error. Please check your connection and try again.');
+  } finally {
+    submitButton.disabled = false;
+    submitButton.innerHTML = originalText;
+  }
 }
 
 function resetForm(){
   document.querySelectorAll('input[type=text],input[type=email],input[type=tel],input[type=date],textarea').forEach(el=>el.value='');
   document.querySelectorAll('input[type=checkbox]').forEach(el=>el.checked=false);
   document.querySelectorAll('select').forEach(el=>el.selectedIndex=0);
-  clearSig('client-sig'); clearSig('artist-sig'); clearSig('guardian-sig');
+  clearSig('client-sig');
+  clearSig('artist-sig');
+  clearSig('guardian-sig');
   document.getElementById('today-date').value = new Date().toISOString().split('T')[0];
   document.getElementById('success-screen').classList.remove('show');
+  document.getElementById('age-warning').style.display = 'none';
+  document.getElementById('guardian-section').style.display = 'none';
   window.scrollTo(0,0);
 }
 </script>
