@@ -1,47 +1,708 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Dice Roller</title>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Tattoo Consent Form</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
-body{
-font-family:Arial;
-text-align:center;
-margin-top:100px;
-background:#111;
-color:white;
-}
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --ink:#0d0d0d;
+    --paper:#f5f0e8;
+    --red:#c0392b;
+    --mid:#888;
+    --border:#d0c9bb;
+    --white:#fff;
+  }
+  body{background:var(--paper);font-family:'Inter',sans-serif;color:var(--ink);min-height:100vh;padding:0}
 
-button{
-padding:15px 30px;
-font-size:20px;
-margin-top:20px;
-cursor:pointer;
-}
+  /* Print styles */
+  @media print {
+    .no-print{display:none!important}
+    body{background:#fff}
+    .page{box-shadow:none;margin:0;border-radius:0}
+    .submit-btn{display:none}
+  }
 
-#dice{
-font-size:80px;
-margin-top:20px;
-}
+  .header{
+    background:var(--ink);
+    color:#fff;
+    padding:32px 40px 28px;
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    gap:20px;
+  }
+  .header-left h1{
+    font-family:'Bebas Neue',sans-serif;
+    font-size:52px;
+    letter-spacing:2px;
+    line-height:1;
+    color:#fff;
+  }
+  .header-left p{
+    font-size:12px;
+    color:#888;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    margin-top:6px;
+  }
+  .header-right{
+    text-align:right;
+    font-size:11px;
+    color:#666;
+    line-height:1.8;
+  }
+  .header-right strong{color:#fff;font-size:13px}
+
+  .red-bar{
+    background:var(--red);
+    height:4px;
+  }
+
+  .page{
+    max-width:860px;
+    margin:0 auto;
+    padding:40px 40px 60px;
+  }
+
+  /* Section titles */
+  .section-label{
+    font-family:'Bebas Neue',sans-serif;
+    font-size:13px;
+    letter-spacing:0.2em;
+    color:var(--red);
+    text-transform:uppercase;
+    margin-bottom:16px;
+    padding-bottom:6px;
+    border-bottom:1px solid var(--border);
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .section-label::before{
+    content:'';
+    display:inline-block;
+    width:8px;height:8px;
+    background:var(--red);
+    border-radius:50%;
+  }
+
+  .section{margin-bottom:36px}
+
+  /* Form grid */
+  .grid{display:grid;gap:16px}
+  .grid-2{grid-template-columns:1fr 1fr}
+  .grid-3{grid-template-columns:1fr 1fr 1fr}
+  @media(max-width:600px){.grid-2,.grid-3{grid-template-columns:1fr}}
+
+  .field label{
+    display:block;
+    font-size:10px;
+    font-weight:600;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--mid);
+    margin-bottom:6px;
+  }
+  .field input,
+  .field select,
+  .field textarea{
+    width:100%;
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:4px;
+    padding:10px 12px;
+    font-size:14px;
+    font-family:'Inter',sans-serif;
+    color:var(--ink);
+    transition:border-color 0.15s;
+    appearance:none;
+  }
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus{
+    outline:none;
+    border-color:var(--ink);
+  }
+  .field textarea{resize:vertical;min-height:80px}
+  .field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' fill='none' stroke-width='1.5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px}
+
+  /* Checkboxes */
+  .check-group{display:flex;flex-direction:column;gap:10px}
+  .check-item{display:flex;align-items:flex-start;gap:10px;cursor:pointer}
+  .check-item input[type=checkbox]{
+    width:16px;height:16px;min-width:16px;
+    margin-top:2px;
+    accent-color:var(--ink);
+    cursor:pointer;
+  }
+  .check-item span{font-size:13px;line-height:1.5;color:#333}
+  .check-item strong{color:var(--ink)}
+
+  /* Medical conditions grid */
+  .conditions-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:8px;
+  }
+  @media(max-width:600px){.conditions-grid{grid-template-columns:1fr 1fr}}
+  .cond-item{
+    display:flex;align-items:center;gap:8px;
+    font-size:13px;color:#333;cursor:pointer;
+  }
+  .cond-item input{accent-color:var(--red);cursor:pointer}
+
+  /* Divider */
+  .divider{border:none;border-top:1px solid var(--border);margin:32px 0}
+
+  /* Waiver box */
+  .waiver-box{
+    background:#fff;
+    border:1px solid var(--border);
+    border-left:3px solid var(--ink);
+    padding:20px 20px 20px 20px;
+    border-radius:4px;
+    font-size:12px;
+    line-height:1.8;
+    color:#444;
+    margin-bottom:20px;
+    max-height:200px;
+    overflow-y:auto;
+  }
+  .waiver-box p{margin-bottom:10px}
+  .waiver-box p:last-child{margin-bottom:0}
+
+  /* Signature area */
+  .sig-area{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:24px;
+    margin-top:20px;
+  }
+  @media(max-width:600px){.sig-area{grid-template-columns:1fr}}
+
+  .sig-box{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+  }
+  .sig-box label{
+    font-size:10px;font-weight:600;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--mid);
+  }
+  canvas{
+    border:1px solid var(--border);
+    border-radius:4px;
+    background:#fff;
+    cursor:crosshair;
+    touch-action:none;
+    width:100%;
+    height:120px;
+  }
+  .sig-actions{
+    display:flex;gap:8px;margin-top:4px;
+  }
+  .sig-btn{
+    font-size:11px;font-family:'Inter',sans-serif;
+    padding:4px 10px;border-radius:3px;cursor:pointer;
+    letter-spacing:0.05em;border:1px solid var(--border);
+    background:#fff;color:#666;transition:all .15s;
+  }
+  .sig-btn:hover{border-color:var(--ink);color:var(--ink)}
+
+  /* Submit */
+  .form-footer{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    margin-top:36px;
+    padding-top:28px;
+    border-top:2px solid var(--ink);
+    flex-wrap:wrap;
+  }
+  .footer-note{font-size:11px;color:var(--mid);max-width:420px;line-height:1.6}
+
+  .btn-group{display:flex;gap:12px;flex-wrap:wrap}
+  .submit-btn{
+    background:var(--ink);color:#fff;
+    border:none;border-radius:4px;
+    padding:14px 32px;
+    font-family:'Bebas Neue',sans-serif;
+    font-size:18px;letter-spacing:2px;
+    cursor:pointer;transition:background .2s;
+  }
+  .submit-btn:hover{background:#c0392b}
+  .print-btn{
+    background:transparent;color:var(--ink);
+    border:2px solid var(--ink);border-radius:4px;
+    padding:12px 24px;
+    font-family:'Bebas Neue',sans-serif;
+    font-size:18px;letter-spacing:2px;
+    cursor:pointer;transition:all .2s;
+  }
+  .print-btn:hover{background:var(--ink);color:#fff}
+
+  /* Success screen */
+  #success-screen{
+    display:none;
+    position:fixed;inset:0;
+    background:var(--paper);
+    z-index:100;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:20px;
+    text-align:center;
+    padding:40px;
+  }
+  #success-screen.show{display:flex}
+  .success-icon{font-size:72px;line-height:1}
+  #success-screen h2{font-family:'Bebas Neue',sans-serif;font-size:48px;letter-spacing:2px}
+  #success-screen p{color:#555;font-size:15px;max-width:400px;line-height:1.6}
+  .new-btn{
+    background:var(--ink);color:#fff;border:none;border-radius:4px;
+    padding:14px 32px;font-family:'Bebas Neue',sans-serif;
+    font-size:18px;letter-spacing:2px;cursor:pointer;margin-top:8px;
+  }
+
+  /* Required star */
+  .req{color:var(--red)}
+
+  /* Info note */
+  .info-note{
+    background:#fff;border:1px solid var(--border);
+    border-radius:4px;padding:12px 14px;
+    font-size:12px;color:#666;line-height:1.6;
+    margin-top:12px;
+  }
+  .info-note strong{color:var(--ink)}
+
+  /* Age warning */
+  #age-warning{
+    display:none;
+    background:#fff3cd;border:1px solid #ffc107;
+    border-radius:4px;padding:12px 14px;
+    font-size:13px;color:#856404;margin-top:8px;
+  }
 </style>
 </head>
-
 <body>
 
-<h1>Dice Roller</h1>
+<div class="header no-print">
+  <div class="header-left">
+    <h1>Tattoo Consent</h1>
+    <p>Client Intake &amp; Liability Waiver</p>
+  </div>
+  <div class="header-right">
+    <strong>Studio Name</strong><br/>
+    123 Ink Street, Your City<br/>
+    hello@yourstudio.com<br/>
+    (000) 000-0000
+  </div>
+</div>
+<div class="red-bar"></div>
 
-<div id="dice">🎲</div>
+<div class="page">
 
-<button onclick="rollDice()">Roll Dice</button>
+  <!-- CLIENT INFO -->
+  <div class="section">
+    <div class="section-label">Client Information</div>
+    <div class="grid grid-2" style="margin-bottom:16px">
+      <div class="field">
+        <label>Full Legal Name <span class="req">*</span></label>
+        <input type="text" id="fullname" placeholder="First and Last Name" required/>
+      </div>
+      <div class="field">
+        <label>Date of Birth <span class="req">*</span></label>
+        <input type="date" id="dob" required/>
+        <div id="age-warning">⚠️ You must be 18 or older to receive a tattoo. A parent or guardian must be present and co-sign.</div>
+      </div>
+      <div class="field">
+        <label>Phone Number <span class="req">*</span></label>
+        <input type="tel" id="phone" placeholder="(000) 000-0000"/>
+      </div>
+      <div class="field">
+        <label>Email Address</label>
+        <input type="email" id="email" placeholder="your@email.com"/>
+      </div>
+      <div class="field" style="grid-column:1/-1">
+        <label>Address</label>
+        <input type="text" id="address" placeholder="Street address, City, State, ZIP"/>
+      </div>
+    </div>
+    <div class="grid grid-3">
+      <div class="field">
+        <label>ID Type</label>
+        <select id="id-type">
+          <option value="">Select ID type</option>
+          <option>Driver's License</option>
+          <option>Passport</option>
+          <option>State ID</option>
+          <option>Military ID</option>
+          <option>Other Government ID</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>ID Number</label>
+        <input type="text" id="id-number" placeholder="ID number"/>
+      </div>
+      <div class="field">
+        <label>Today's Date</label>
+        <input type="date" id="today-date"/>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider"/>
+
+  <!-- TATTOO DETAILS -->
+  <div class="section">
+    <div class="section-label">Tattoo Details</div>
+    <div class="grid grid-2" style="margin-bottom:16px">
+      <div class="field">
+        <label>Artist Name <span class="req">*</span></label>
+        <input type="text" id="artist" placeholder="Tattoo artist"/>
+      </div>
+      <div class="field">
+        <label>Appointment Date</label>
+        <input type="date" id="appt-date"/>
+      </div>
+      <div class="field">
+        <label>Placement / Body Location <span class="req">*</span></label>
+        <input type="text" id="placement" placeholder="e.g. left forearm, upper back"/>
+      </div>
+      <div class="field">
+        <label>Approximate Size</label>
+        <select id="size">
+          <option value="">Select size</option>
+          <option>Small (under 2 inches)</option>
+          <option>Medium (2–4 inches)</option>
+          <option>Large (4–8 inches)</option>
+          <option>Extra Large (8+ inches)</option>
+          <option>Full sleeve / back / etc.</option>
+        </select>
+      </div>
+    </div>
+    <div class="field">
+      <label>Design Description</label>
+      <textarea id="design" placeholder="Briefly describe the tattoo design, style, colours, references..."></textarea>
+    </div>
+    <div class="info-note" style="margin-top:12px">
+      <strong>First tattoo?</strong> &nbsp;
+      <label class="check-item" style="display:inline-flex"><input type="checkbox" id="first-tattoo"/> <span>Yes, this is my first tattoo</span></label>
+    </div>
+  </div>
+
+  <hr class="divider"/>
+
+  <!-- MEDICAL -->
+  <div class="section">
+    <div class="section-label">Health &amp; Medical Information</div>
+    <p style="font-size:13px;color:#555;margin-bottom:16px;line-height:1.6">Please check <strong>all conditions that apply</strong>. This information is kept strictly confidential and is used solely to ensure your safety during the procedure.</p>
+    <div class="conditions-grid" style="margin-bottom:20px">
+      <label class="cond-item"><input type="checkbox" name="condition" value="diabetes"/> Diabetes</label>
+      <label class="cond-item"><input type="checkbox" name="condition" value="epilepsy"/> Epilepsy / Seizures</label>
+      <label class="cond-item"><input type="checkbox" name="condition" value="heart"/> Heart Condition</label>
+      <label class="cond-item"><input type="checkbox" name="condition" value="hemophilia"/> Hemophilia / Blood Disorder</label>
+      <label class="cond-item"><input type="checkbox" name="condition" value="hiv"/> HIV / Hepatitis</label>
+      <label class="cond-item"><input type="checkbox" name="condition" value="immune"/> Immune Disorder</label>
+      <label class="cond-item"><input type="checkbox" name="condition" value="keloid"/> Keloid Scarring</label>
+      <label class="cond-item"><input type="checkbox" name="condition" value="pacemaker"/> Pacemaker</label>
+      <label class="cond-item"><input type="checkbox" name="condition" value="pregnant"/> Pregnant / Breastfeeding</label>
+      <label class="cond-item"><input type="checkbox" name="condition" value="psoriasis"/> Psoriasis / Eczema</label>
+      <label class="cond-item"><input type="checkbox" name="condition" value="skincon"/> Skin Condition</label>
+      <label class="cond-item"><input type="checkbox" name="condition" value="other-med"/> Other</label>
+    </div>
+    <div class="grid grid-2">
+      <div class="field">
+        <label>Medications / Blood Thinners</label>
+        <textarea id="medications" placeholder="List any current medications, especially blood thinners (e.g. aspirin, warfarin, Accutane)..." style="min-height:60px"></textarea>
+      </div>
+      <div class="field">
+        <label>Allergies (ink, latex, metals, etc.)</label>
+        <textarea id="allergies" placeholder="List any known allergies relevant to tattooing..." style="min-height:60px"></textarea>
+      </div>
+    </div>
+    <div class="grid grid-3" style="margin-top:16px">
+      <div class="field">
+        <label>Alcohol / Drugs in last 24hrs?</label>
+        <select id="substances">
+          <option value="no">No</option>
+          <option value="yes">Yes</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Sunburned / Tanned skin at site?</label>
+        <select id="sunburn">
+          <option value="no">No</option>
+          <option value="yes">Yes</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Previous allergic reaction to tattoo?</label>
+        <select id="prev-reaction">
+          <option value="no">No</option>
+          <option value="yes">Yes</option>
+        </select>
+      </div>
+    </div>
+    <div class="field" style="margin-top:16px">
+      <label>Additional Health Notes</label>
+      <textarea id="health-notes" placeholder="Any other health information your artist should know..." style="min-height:60px"></textarea>
+    </div>
+  </div>
+
+  <hr class="divider"/>
+
+  <!-- CONSENT & WAIVER -->
+  <div class="section">
+    <div class="section-label">Consent &amp; Liability Waiver</div>
+    <div class="waiver-box">
+      <p>I, the undersigned, hereby consent to receive a tattoo from the above-named artist at this studio. I confirm that I am at least 18 years of age (or have parental/guardian consent), and I am not under the influence of alcohol or drugs.</p>
+      <p>I acknowledge that tattooing is a permanent body modification and I have chosen this procedure of my own free will. I understand that: (1) Tattooing involves needles penetrating the skin and carries inherent risks including, but not limited to, infection, scarring, allergic reactions, and dissatisfaction with results; (2) Results may vary and I accept the artistic outcome as agreed upon in the consultation.</p>
+      <p>I confirm that all health information I have provided is accurate and complete. I agree to inform the artist immediately if I feel unwell during the procedure. I release this studio and its artists from any liability arising from complications related to undisclosed medical conditions.</p>
+      <p>I understand that tattoos fade and change over time and that touch-ups may be required. I agree to follow all aftercare instructions provided and understand that failure to do so may affect the outcome. Touch-up services for issues arising from improper aftercare may incur additional charges.</p>
+      <p>I confirm that the design, placement, and size have been agreed upon and I am satisfied with the stencil placement before the tattoo begins. I understand that the deposit is non-refundable and is applied to the final cost of the tattoo.</p>
+      <p>I grant permission for photographs of the completed tattoo to be taken for use in the studio's portfolio and social media, unless I specifically opt out below.</p>
+      <p>By signing below, I acknowledge that I have read, understood, and agree to all of the above terms and conditions.</p>
+    </div>
+
+    <div class="check-group">
+      <label class="check-item">
+        <input type="checkbox" id="consent-age"/>
+        <span>I confirm I am <strong>18 years of age or older</strong> (or have parental/guardian consent) and have provided valid government-issued ID.</span>
+      </label>
+      <label class="check-item">
+        <input type="checkbox" id="consent-sober"/>
+        <span>I confirm I am <strong>not under the influence</strong> of alcohol or recreational drugs.</span>
+      </label>
+      <label class="check-item">
+        <input type="checkbox" id="consent-health"/>
+        <span>I confirm all <strong>health information provided is accurate</strong> and I have disclosed all relevant medical conditions.</span>
+      </label>
+      <label class="check-item">
+        <input type="checkbox" id="consent-permanent"/>
+        <span>I understand that tattooing is <strong>permanent</strong> and I accept full responsibility for my decision.</span>
+      </label>
+      <label class="check-item">
+        <input type="checkbox" id="consent-aftercare"/>
+        <span>I agree to follow all <strong>aftercare instructions</strong> provided by my artist.</span>
+      </label>
+      <label class="check-item">
+        <input type="checkbox" id="consent-photo"/>
+        <span>I <strong>give permission</strong> for photos of my tattoo to be used for portfolio/social media purposes. <em>(Uncheck to opt out)</em></span>
+      </label>
+      <label class="check-item">
+        <input type="checkbox" id="consent-waiver"/>
+        <span>I have read and <strong>agree to the full liability waiver</strong> above. <span class="req">*</span></span>
+      </label>
+    </div>
+  </div>
+
+  <hr class="divider"/>
+
+  <!-- SIGNATURES -->
+  <div class="section">
+    <div class="section-label">Signatures</div>
+    <div class="sig-area">
+      <div class="sig-box">
+        <label>Client Signature <span class="req">*</span></label>
+        <canvas id="client-sig" width="400" height="120"></canvas>
+        <div class="sig-actions">
+          <button class="sig-btn" onclick="clearSig('client-sig')">Clear</button>
+          <span style="font-size:11px;color:#aaa;align-self:center">Sign above with mouse or finger</span>
+        </div>
+      </div>
+      <div class="sig-box">
+        <label>Artist Signature</label>
+        <canvas id="artist-sig" width="400" height="120"></canvas>
+        <div class="sig-actions">
+          <button class="sig-btn" onclick="clearSig('artist-sig')">Clear</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="guardian-section" style="margin-top:24px;display:none">
+      <div class="info-note" style="margin-bottom:16px;border-color:#ffc107;background:#fffdf0">
+        ⚠️ <strong>Minor Client:</strong> A parent or legal guardian must complete the section below.
+      </div>
+      <div class="grid grid-2" style="margin-bottom:16px">
+        <div class="field">
+          <label>Guardian Full Name</label>
+          <input type="text" id="guardian-name" placeholder="Parent / Guardian full name"/>
+        </div>
+        <div class="field">
+          <label>Relationship to Client</label>
+          <input type="text" id="guardian-relation" placeholder="e.g. Mother, Father, Legal Guardian"/>
+        </div>
+        <div class="field">
+          <label>Guardian Phone</label>
+          <input type="tel" id="guardian-phone" placeholder="(000) 000-0000"/>
+        </div>
+        <div class="field">
+          <label>Guardian ID Number</label>
+          <input type="text" id="guardian-id" placeholder="ID number"/>
+        </div>
+      </div>
+      <div class="sig-box" style="max-width:400px">
+        <label>Guardian Signature</label>
+        <canvas id="guardian-sig" width="400" height="120"></canvas>
+        <div class="sig-actions">
+          <button class="sig-btn" onclick="clearSig('guardian-sig')">Clear</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="form-footer">
+    <p class="footer-note">This form is kept on file for a minimum of 7 years. Your information is private and will not be shared with third parties. Fields marked <span class="req">*</span> are required.</p>
+    <div class="btn-group no-print">
+      <button class="print-btn" onclick="window.print()">🖨 Print</button>
+      <button class="submit-btn" onclick="submitForm()">Submit Form →</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- SUCCESS SCREEN -->
+<div id="success-screen">
+  <div class="success-icon">🖊️</div>
+  <h2>Form Submitted</h2>
+  <p>Thank you! Your consent form has been recorded. Your artist will be with you shortly.</p>
+  <button class="new-btn" onclick="resetForm()">New Client Form</button>
+</div>
 
 <script>
-function rollDice(){
-let number = Math.floor(Math.random()*6)+1;
+// Set today's date
+document.getElementById('today-date').value = new Date().toISOString().split('T')[0];
 
-const diceFaces = ["⚀","⚁","⚂","⚃","⚄","⚅"];
+// Age check
+document.getElementById('dob').addEventListener('change', function(){
+  const dob = new Date(this.value);
+  const today = new Date();
+  let age = today.getFullYear() - dob.getFullYear();
+  const m = today.getMonth() - dob.getMonth();
+  if(m < 0 || (m === 0 && today.getDate() < dob.getDate())) age--;
+  const warn = document.getElementById('age-warning');
+  const guardSec = document.getElementById('guardian-section');
+  if(age < 18 && age > 0){
+    warn.style.display = 'block';
+    guardSec.style.display = 'block';
+  } else {
+    warn.style.display = 'none';
+    guardSec.style.display = 'none';
+  }
+});
 
-document.getElementById("dice").innerHTML = diceFaces[number-1];
+// Signature pads
+function initCanvas(id){
+  const canvas = document.getElementById(id);
+  const ctx = canvas.getContext('2d');
+  // Resize canvas to actual display size
+  const rect = canvas.getBoundingClientRect();
+  canvas.width = rect.width || 380;
+  canvas.height = 120;
+  ctx.strokeStyle = '#0d0d0d';
+  ctx.lineWidth = 2;
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
+  let drawing = false;
+  let lastX = 0, lastY = 0;
+
+  function getPos(e){
+    const r = canvas.getBoundingClientRect();
+    const scaleX = canvas.width / r.width;
+    const scaleY = canvas.height / r.height;
+    if(e.touches){
+      return {
+        x:(e.touches[0].clientX - r.left) * scaleX,
+        y:(e.touches[0].clientY - r.top) * scaleY
+      };
+    }
+    return {
+      x:(e.clientX - r.left) * scaleX,
+      y:(e.clientY - r.top) * scaleY
+    };
+  }
+
+  canvas.addEventListener('mousedown', e=>{drawing=true;const p=getPos(e);lastX=p.x;lastY=p.y;});
+  canvas.addEventListener('mousemove', e=>{
+    if(!drawing)return;
+    const p=getPos(e);
+    ctx.beginPath();ctx.moveTo(lastX,lastY);ctx.lineTo(p.x,p.y);ctx.stroke();
+    lastX=p.x;lastY=p.y;
+  });
+  canvas.addEventListener('mouseup',()=>drawing=false);
+  canvas.addEventListener('mouseleave',()=>drawing=false);
+  canvas.addEventListener('touchstart',e=>{e.preventDefault();drawing=true;const p=getPos(e);lastX=p.x;lastY=p.y;},{passive:false});
+  canvas.addEventListener('touchmove',e=>{
+    e.preventDefault();
+    if(!drawing)return;
+    const p=getPos(e);
+    ctx.beginPath();ctx.moveTo(lastX,lastY);ctx.lineTo(p.x,p.y);ctx.stroke();
+    lastX=p.x;lastY=p.y;
+  },{passive:false});
+  canvas.addEventListener('touchend',()=>drawing=false);
+}
+
+function clearSig(id){
+  const canvas = document.getElementById(id);
+  canvas.getContext('2d').clearRect(0,0,canvas.width,canvas.height);
+}
+
+function isCanvasEmpty(id){
+  const canvas = document.getElementById(id);
+  const data = canvas.getContext('2d').getImageData(0,0,canvas.width,canvas.height).data;
+  for(let i=3;i<data.length;i+=4){ if(data[i]>0) return false; }
+  return true;
+}
+
+window.addEventListener('load',()=>{
+  initCanvas('client-sig');
+  initCanvas('artist-sig');
+  initCanvas('guardian-sig');
+});
+
+// Form validation & submit
+function submitForm(){
+  const name = document.getElementById('fullname').value.trim();
+  const dob = document.getElementById('dob').value;
+  const placement = document.getElementById('placement').value.trim();
+  const artist = document.getElementById('artist').value.trim();
+  const waiver = document.getElementById('consent-waiver').checked;
+  const sigEmpty = isCanvasEmpty('client-sig');
+
+  if(!name){ alert('Please enter your full name.'); return; }
+  if(!dob){ alert('Please enter your date of birth.'); return; }
+  if(!placement){ alert('Please enter the tattoo placement.'); return; }
+  if(!artist){ alert('Please enter the artist name.'); return; }
+  if(!waiver){ alert('Please read and accept the liability waiver.'); return; }
+  if(sigEmpty){ alert('Please provide your signature.'); return; }
+
+  // In a real app, you would send data to a server here
+  // For now, we just show the success screen
+  console.log('Form submitted:', {
+    name, dob, placement, artist,
+    clientSig: document.getElementById('client-sig').toDataURL()
+  });
+
+  document.getElementById('success-screen').classList.add('show');
+  window.scrollTo(0,0);
+}
+
+function resetForm(){
+  document.querySelectorAll('input[type=text],input[type=email],input[type=tel],input[type=date],textarea').forEach(el=>el.value='');
+  document.querySelectorAll('input[type=checkbox]').forEach(el=>el.checked=false);
+  document.querySelectorAll('select').forEach(el=>el.selectedIndex=0);
+  clearSig('client-sig'); clearSig('artist-sig'); clearSig('guardian-sig');
+  document.getElementById('today-date').value = new Date().toISOString().split('T')[0];
+  document.getElementById('success-screen').classList.remove('show');
+  window.scrollTo(0,0);
 }
 </script>
-
 </body>
 </html>
